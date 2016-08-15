@@ -30,25 +30,16 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=Baozhu Zup <zuobaozhu@gmail.com>
 
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+#PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
 include $(INCLUDE_DIR)/package.mk
-
+include $(INCLUDE_DIR)/cmake.mk
 define Package/fasterconfig
 	SECTION:=utils
 	CATEGORY:=ReSpeaker
 	TITLE:=More faster way to setup wifi 
-endef
-
-#define Build/Prepare
-#endef
-
-#define Build/Configure
-#endef
-
-define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR)
-	$(STRIP) $(PKG_BUILD_DIR)/fasterconfig
+	DEPENDS:=+libstdcpp 
 endef
 
 define Package/fasterconfig/install
