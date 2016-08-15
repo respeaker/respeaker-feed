@@ -16,7 +16,7 @@ include $(INCLUDE_DIR)/package.mk
 
 define Package/pocketsphinx
   SECTION:=sound
-  CATEGORY:=Sound
+  CATEGORY:=ReSpeaker
   DEPENDS:=+sphinxbase
   TITLE:=pocketsphinx
 endef

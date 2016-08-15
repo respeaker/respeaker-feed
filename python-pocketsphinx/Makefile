@@ -20,9 +20,8 @@ include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
 
 define Package/python-pocketsphinx
-  SUBMENU:=Python
-  SECTION:=lang
-  CATEGORY:=Languages
+  SECTION:=Python
+  CATEGORY:=ReSpeaker
   TITLE:=python-pocketsphinx
   URL:=https://github.com/xiongyihui/pocketsphinx-python-light
   DEPENDS:=+python-light +alsa-lib +sphinxbase +pocketsphinx

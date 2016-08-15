@@ -16,7 +16,7 @@ include $(INCLUDE_DIR)/package.mk
 
 define Package/sphinxbase
   SECTION:=sound
-  CATEGORY:=Sound
+  CATEGORY:=ReSpeaker
   DEPENDS:=+alsa-lib
   TITLE:=sphinxbase
 endef

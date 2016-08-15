@@ -23,9 +23,8 @@ include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
 
 define Package/python-webrtcvad
-  SUBMENU:=Python
-  SECTION:=lang
-  CATEGORY:=Languages
+  SECTION:=Python
+  CATEGORY:=ReSpeaker
   TITLE:=Python interface to the WebRTC Voice Activity Detector
   URL:=https://github.com/wiseman/py-webrtcvad
   DEPENDS:=+python-light

@@ -22,9 +22,8 @@ include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
 
 define Package/python-futures
-	SECTION:=lang-python
+	SECTION:=Python
 	CATEGORY:=Languages
-	SUBMENU:=Python
 	TITLE:=python-futures
 	URL:=https://pypi.python.org/pypi/futures
 	DEPENDS:=+python

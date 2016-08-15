@@ -22,9 +22,8 @@ include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
 
 define Package/python-tornado
-  SUBMENU:=Python
-  SECTION:=lang
-  CATEGORY:=Languages
+  SECTION:=Python
+  CATEGORY:=ReSpeaker
   TITLE:=Tornado Web Framework
   URL:=https://pypi.python.org/pypi/tornado
   DEPENDS:=+python-light +python-six +python-certifi +python-singledispatch +python-backports-abc

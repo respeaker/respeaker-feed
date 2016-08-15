@@ -20,9 +20,8 @@ include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
 
 define Package/python-backports-abc
-	SECTION:=lang-python
-	CATEGORY:=Languages
-	SUBMENU:=Python
+	SECTION:=Python
+	CATEGORY:=ReSpeaker
 	TITLE:=python-backports-abc
 	URL:=https://pypi.python.org/pypi/six
 	DEPENDS:=+python

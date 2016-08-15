@@ -20,9 +20,8 @@ include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
 
 define Package/python-six
-	SECTION:=lang-python
-	CATEGORY:=Languages
-	SUBMENU:=Python
+	SECTION:=Python
+	CATEGORY:=ReSpeaker
 	TITLE:=python-six
 	URL:=https://pypi.python.org/pypi/six
 	DEPENDS:=+python
