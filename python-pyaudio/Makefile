@@ -23,8 +23,7 @@ include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
 
 define Package/python-pyaudio
-  SUBMENU:=Python
-  SECTION:=lang
+  SECTION:=Python
   CATEGORY:=Languages
   TITLE:=python-pyaudio
   URL:=https://people.csail.mit.edu/hubert/pyaudio
