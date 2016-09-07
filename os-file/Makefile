@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=respeaker-os-file
-PKG_VERSION:=2015-09-07
+PKG_VERSION:=2016-09-07
 PKG_RELEASE=$(PKG_SOURCE_VERSION)
 
 
