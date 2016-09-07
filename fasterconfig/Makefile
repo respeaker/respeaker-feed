@@ -27,7 +27,7 @@ PKG_SOURCE_URL:=git@github.com:respeaker/FasterConfig.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
 PKG_SOURCE_VERSION:=0ca7a31c444438da8937c22f774d00fb5532649e
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
-PKG_MAINTAINER:=Baozhu Zup <zuobaozhu@gmail.com>
+PKG_MAINTAINER:=Baozhu Zuo <zuobaozhu@gmail.com>
 
 
 #PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)

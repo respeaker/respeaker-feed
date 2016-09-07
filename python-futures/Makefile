@@ -22,8 +22,8 @@ include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
 
 define Package/python-futures
-	SECTION:=Python
-	CATEGORY:=Languages
+	SECTION:=respeaker
+	CATEGORY:=ReSpeaker
 	TITLE:=python-futures
 	URL:=https://pypi.python.org/pypi/futures
 	DEPENDS:=+python
