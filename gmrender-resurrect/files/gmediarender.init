@@ -1,5 +1,5 @@
 #!/bin/sh /etc/rc.common
-# Copyright (C) 2013 OpenWrt.org
+# Copyright (C) 2016 Seeed Technology Limited.
 
 # start after and stop before networking
 START=80
