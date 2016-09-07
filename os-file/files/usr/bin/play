@@ -1,0 +1,25 @@
+#!/bin/sh
+
+killall aplay &> /dev/null
+killall madplay &> /dev/null
+
+audio_file=$(find /tmp/run/mountd -name "$1" | sed -n 1p)
+[ -z "$audio_file" ] && echo "not find file" > /dev/console && exit -1
+# echo "find $audio_file"
+
+wav=".wav"
+mp3=".mp3"
+
+if test "${audio_file#*$wav}" != "$audio_file"
+then
+    aplay -M "$audio_file" &
+elif test "${audio_file#*$mp3}" != "$audio_file"
+then
+    madplay "$audio_file" &
+else
+    echo "not support the extension" > /dev/console
+    exit -2
+fi
+
+echo "ok" > /dev/console
+exit 0

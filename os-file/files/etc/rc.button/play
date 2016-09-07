@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. /lib/functions.sh
+
+logger "$BUTTON $ACTION for $SEEN seconds"
+
+[ "${ACTION}" = "released" ] || exit 0
+
+killall aplay
+killall madplay
+
+
+return 0

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. /lib/functions.sh
+
+logger "$BUTTON $ACTION for $SEEN seconds"
+
+[ "${ACTION}" = "released" ] || exit 0
+
+/usr/bin/volume +
+
+if [ "$SEEN" -lt 1 ]
+then
+	echo "up" > /dev/console
+elif [ "$SEEN" -gt 5 ]
+then
+	echo "up++" > /dev/console
+fi
+
+return 0

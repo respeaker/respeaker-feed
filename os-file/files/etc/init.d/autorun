@@ -1,0 +1,9 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2015 OpenWrt.org
+
+START=99
+
+start()
+{
+	[ -f /root/autorun.sh ] && /root/autorun.sh
+}

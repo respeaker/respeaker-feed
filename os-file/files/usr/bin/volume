@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#vol=`amixer sget Headphone | sed -n 's/.*Left.*\[\(.*\)%\].*/\1/p'`
+vol=$(amixer sget Headphone | sed -n 's/.*Left.*\[\(.*\)%\].*/\1/p')
+
+if [ "$1" = "+" ]; then
+    if [ "$vol" -lt 40 ]; then
+        vol=40
+    fi
+    vol=$((vol + 5))
+    if [ "$vol" -gt 90 ]; then
+        vol=90
+    fi
+    volume="$vol%"
+elif [ "$1" = "-" ]; then
+    vol=$((vol - 5))
+    if [ "$vol" -lt 40 ]; then
+        vol=0
+    fi
+    volume="$vol%"
+else
+    volume="$1"
+fi
+
+amixer sset Headphone "$volume"
+amixer sset Speaker "$volume"
