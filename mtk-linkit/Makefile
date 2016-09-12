@@ -14,11 +14,7 @@ define Package/mtk-linkit
   DEPENDS:=@TARGET_ramips_mt7688_LinkIt7688 \
   	+curl +strace +coreutils +coreutils-stty \
   	+avahi-nodbus-daemon +mountd  \
-	+uhttpd +rpcd +rpcd-mod-iwinfo +git +git-http +samba36-server \
-	+python +python-pyserial +python-pip +hidapi \
-	+libmraa +node   \
 	+luci +luci-theme-openwrt +luci-app-samba +luci-lib-json \
-	+rpcd-mod-rpcsys +cgi-io +avrdude +spi-tools +uboot-envtools \
 	+kmod-fs-vfat +kmod-fs-exfat  \
 	+kmod-nls-base +kmod-nls-cp437 +kmod-nls-iso8859-1 \
 	+kmod-nls-iso8859-15 +kmod-nls-iso8859-2 +kmod-nls-utf8 \
