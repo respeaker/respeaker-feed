@@ -19,19 +19,21 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fasterconfig
-PKG_VERSION:=0.0.2
+PKG_VERSION:=0.0.3
 PKG_RELEASE:=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git@github.com:respeaker/FasterConfig.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
-PKG_SOURCE_VERSION:=0ca7a31c444438da8937c22f774d00fb5532649e
+PKG_SOURCE_VERSION:=65c4cb822c60920e3d82d80468f8a0f93f3cda13
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=Baozhu Zuo <zuobaozhu@gmail.com>
 
 
 #PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
+PKG_BUILD_DEPENDS:=+libstdcpp +libpthread
+
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -39,15 +41,15 @@ define Package/fasterconfig
 	SECTION:=utils
 	CATEGORY:=ReSpeaker
 	TITLE:=More faster way to setup wifi 
-	DEPENDS:=+libstdcpp 
+	DEPENDS:=+libstdcpp +libpthread
 endef
 
 define Package/fasterconfig/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(CP) $(PKG_BUILD_DIR)/src/fasterconfig $(1)/usr/bin/
-	mkdir -p /etc/fasterconfig
-	$(CP) $(PKG_BUILD_DIR)/fasterconfig.conf /etc/fasterconfig
-	$(CP) $(PKG_BUILD_DIR)/fasterconfig-msg.html /etc/fasterconfig		
+	mkdir -p $(1)/etc/fasterconfig
+	$(CP) $(PKG_BUILD_DIR)/fasterconfig.conf $(1)/etc/fasterconfig
+	$(CP) $(PKG_BUILD_DIR)/fasterconfig-msg.html $(1)/etc/fasterconfig		
 endef
 
 $(eval $(call BuildPackage,fasterconfig))
