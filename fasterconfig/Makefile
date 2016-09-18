@@ -45,6 +45,9 @@ endef
 define Package/fasterconfig/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(CP) $(PKG_BUILD_DIR)/src/fasterconfig $(1)/usr/bin/
+	mkdir -p /etc/fasterconfig
+	$(CP) $(PKG_BUILD_DIR)/fasterconfig.conf /etc/fasterconfig
+	$(CP) $(PKG_BUILD_DIR)/fasterconfig-msg.html /etc/fasterconfig		
 endef
 
 $(eval $(call BuildPackage,fasterconfig))
