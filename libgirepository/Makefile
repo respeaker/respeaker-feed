@@ -17,7 +17,7 @@ define Package/libgirepository
   SECTION:=respeaker
   CATEGORY:=ReSpeaker
   TITLE:=libgirepository
-  DEPENDS:=+glib2 +libffi
+  DEPENDS:=+glib2 +libffi +gobject-introspection
   ABI_VERSION:=$(PKG_RELEASE)
 endef
 
