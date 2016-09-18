@@ -39,7 +39,7 @@ endef
 
 define Package/python-gst/install
 	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)/gi/overrides
-	$(CP) $(PKG_BUILD_DIR)/gi/overrides/*.py $(1)$(PYTHON_PKG_DIR)/gi/overrides
+	$(CP) $(PKG_BUILD_DIR)/gi/overrides/G*.py $(1)$(PYTHON_PKG_DIR)/gi/overrides
 	$(CP) $(PKG_BUILD_DIR)/gi/overrides/.libs/_gi_gst.so $(1)$(PYTHON_PKG_DIR)/gi/overrides
 endef
 
