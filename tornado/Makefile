@@ -45,10 +45,11 @@ define Package/python-tornado/install
 	$(CP) \
 	    $(PKG_BUILD_DIR)/build/lib.linux2-2.7/tornado/speedups.so \
 	    $(1)$(PYTHON_PKG_DIR)/tornado
-	$(CP) -R \
+	$(CP) \
 	    $(PKG_BUILD_DIR)/build/lib.linux2-2.7/tornado/platform \
 	    $(1)$(PYTHON_PKG_DIR)/tornado
-	$(CP) $(PKG_BUILD_DIR)/ipkg-install/usr/lib/python2.7/site-packages/site.py $(1)$(PYTHON_PKG_DIR)
+	$(CP) $(PKG_BUILD_DIR)/tornado.egg-info $(1)$(PYTHON_PKG_DIR)
+	# $(CP) $(PKG_BUILD_DIR)/ipkg-install/usr/lib/python2.7/site-packages/site.py $(1)$(PYTHON_PKG_DIR)
 endef
 
 $(eval $(call BuildPackage,python-tornado))
