@@ -22,8 +22,8 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 $(call include_mk, python-package.mk)
 
-# TARGET_CFLAGS += $(FPIC)
-# CONFIGURE_VARS += PYTHON=$(HOST_PYTHON)
+TARGET_CFLAGS += $(FPIC)
+CONFIGURE_VARS += PYTHON=$(HOST_PYTHON)
 
 define Package/python-gst
   SECTION:=respeaker
@@ -39,8 +39,9 @@ endef
 
 define Package/python-gst/install
 	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)/gi/overrides
-	$(CP) $(PKG_BUILD_DIR)/gi/overrides/G*.py $(1)$(PYTHON_PKG_DIR)/gi/overrides
-	$(CP) $(PKG_BUILD_DIR)/gi/overrides/.libs/_gi_gst.so $(1)$(PYTHON_PKG_DIR)/gi/overrides
+	$(CP) $(PKG_BUILD_DIR)/gi/overrides/GstPbutils.py $(1)$(PYTHON_PKG_DIR)/gi/overrides
+	#$(CP) $(PKG_BUILD_DIR)/gi/overrides/G*.py $(1)$(PYTHON_PKG_DIR)/gi/overrides
+	#$(CP) $(PKG_BUILD_DIR)/gi/overrides/.libs/_gi_gst.so $(1)$(PYTHON_PKG_DIR)/gi/overrides
 endef
 
 $(eval $(call BuildPackage,python-gst))
