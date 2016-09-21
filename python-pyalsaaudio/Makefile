@@ -41,7 +41,7 @@ endef
 
 define Package/python-pyalsaaudio/install
 	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
-	$(CP) $(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/alsaaudio.so \
+	$(CP) $(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
 	     $(1)$(PYTHON_PKG_DIR)
 endef
 

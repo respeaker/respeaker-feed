@@ -27,7 +27,7 @@ define Package/python-pyaudio
   CATEGORY:=ReSpeaker
   TITLE:=python-pyaudio
   URL:=https://people.csail.mit.edu/hubert/pyaudio
-  DEPENDS:=+python-light +portaudio
+  DEPENDS:=+python +portaudio
 endef
 
 define Package/python-pyaudio/description
@@ -40,6 +40,7 @@ endef
 
 define Package/python-pyaudio/install
 	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
+	$(CP) $(PKG_BUILD_DIR)/PKG-INFO $(1)$(PYTHON_PKG_DIR)/pyaudio.egg-info
 	$(CP) $(PKG_BUILD_DIR)/build/lib.linux2-2.7/* \
 	    $(1)$(PYTHON_PKG_DIR)
 endef

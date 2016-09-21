@@ -44,8 +44,9 @@ endef
 
 define Package/python-webrtcvad/install
 	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
+	$(CP) $(PKG_BUILD_DIR)/webrtcvad.egg-info/PKG-INFO $(1)$(PYTHON_PKG_DIR)/webrtcvad.egg-info
 	$(CP) \
-	    $(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
+	    $(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/*.egg \
 	    $(1)$(PYTHON_PKG_DIR)
 endef
 
