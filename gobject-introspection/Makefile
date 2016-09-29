@@ -36,6 +36,7 @@ define Build/InstallDev
 endef
 
 define Package/gobject-introspection/install
+	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) ./files/usr/lib/girepository-1.0 $(1)/usr/lib
 endef
 
