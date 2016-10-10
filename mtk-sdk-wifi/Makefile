@@ -87,6 +87,7 @@ else
 	$(CP) ./wifi_binary/mt_wifi.ko_$(LINUX_VERSION) $(1)/lib/modules/$(LINUX_VERSION)/mt_wifi.ko
 endif
 	$(CP) ./files/* $(1)
+	$(INSTALL_BIN) ./files/lib/netifd/wireless/ralink.sh $(1)/lib/netifd/wireless/ralink.sh
 
 endef
 
