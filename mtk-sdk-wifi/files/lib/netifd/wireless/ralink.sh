@@ -140,9 +140,9 @@ ralink_setup_sta(){
 	esac
 	json_select ..
 
-	/sbin/ap_client "ra0" "$ifname" "${ssid}" "${key}" "${led}"
+	/sbin/apClient "ra0" "$ifname" "${ssid}" "${key}" "${led}"
 	sleep 1
-	wireless_add_process "$(cat /tmp/apcli-${ifname}.pid)" /sbin/ap_client ra0 "$ifname" "${ssid}" "${key}" "${led}"
+	wireless_add_process "$(cat /tmp/apcli-${ifname}.pid)" /sbin/apClient ra0 "$ifname" "${ssid}" "${key}" "${led}"
 
 	wireless_add_vif "$name" "$ifname"
 }
@@ -238,7 +238,7 @@ EOF
 	LED="$(uci get wireless.sta.led)"
 	sta_disabled="$(uci get wireless.sta.disabled)"
 	sta_disabled=1
-	[ "${sta_disabled}" = "1" -a -n "${LED}" -a -f /sys/class/leds/${LED}/trigger ] && ap_client ${LED} set
+	[ "${sta_disabled}" = "1" -a -n "${LED}" -a -f /sys/class/leds/${LED}/trigger ] && apClient ${LED} set
 }
 
 ralink_teardown() {
@@ -249,7 +249,7 @@ ralink_teardown() {
 	ifconfig $ifname down
 
 	LED="$(uci get wireless.sta.led)"
-	[ -n "${LED}" -a -f /sys/class/leds/${LED}/trigger ] && ap_client ${LED} clear
+	[ -n "${LED}" -a -f /sys/class/leds/${LED}/trigger ] && apClient ${LED} clear
 }
 
 drv_ralink_teardown() {
