@@ -44,9 +44,16 @@ define Build/InstallDev
 endef
 
 define Package/mopidy/install
-	$(CP) $(PKG_INSTALL_DIR)/* $(1)
+	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)/
+	$(CP) \
+		$(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
+		$(1)$(PYTHON_PKG_DIR)/
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) ./files/mopidy $(1)/usr/bin
 	$(INSTALL_DIR) $(1)/root/.config/mopidy
 	$(CP) ./files/mopidy.conf $(1)/root/.config/mopidy
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/mopidy.autorun $(1)/etc/init.d/mopidy
 endef
 
 $(eval $(call BuildPackage,mopidy))
