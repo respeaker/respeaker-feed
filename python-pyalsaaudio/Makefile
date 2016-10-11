@@ -23,9 +23,8 @@ include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
 
 define Package/python-pyalsaaudio
-  SUBMENU:=Python
-  SECTION:=lang
-  CATEGORY:=Languages
+  SECTION:=respeaker
+  CATEGORY:=ReSpeaker
   TITLE:=python-pyalsaaudio
   URL:=https://github.com/larsimmisch/pyalsaaudio
   DEPENDS:=+python +alsa-lib

@@ -19,7 +19,7 @@ include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
 
 define Package/pykka
-	SECTION:=Python
+	SECTION:=respeaker
 	CATEGORY:=ReSpeaker
 	TITLE:=pykka
 	URL:=https://github.com/jodal/pykka

@@ -19,7 +19,7 @@ include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
 
 define Package/mopidy-moped
-	SECTION:=Python
+	SECTION:=respeaker
 	CATEGORY:=ReSpeaker
 	TITLE:=mopidy-moped
 	URL:=https://github.com/martijnboland/moped
