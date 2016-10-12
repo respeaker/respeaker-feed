@@ -4,11 +4,9 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=python-pyalsaaudio
+PKG_NAME:=python-alsaaudio
 PKG_VERSION:=0.8.2
 PKG_RELEASE:=1
-PKG_MAINTAINER:=Yihui Xiong <yihui.xiong@seeed.cc>
-PKG_LICENSE:=Python-2.0
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/larsimmisch/pyalsaaudio.git
@@ -22,16 +20,15 @@ PKG_BUILD_DEPENDS:=python python-setuptools alsa-lib
 include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
 
-define Package/python-pyalsaaudio
-  SUBMENU:=Python
-  SECTION:=lang
-  CATEGORY:=Languages
-  TITLE:=python-pyalsaaudio
+define Package/python-alsaaudio
+  SECTION:=respeaker
+  CATEGORY:=ReSpeaker
+  TITLE:=python-alsaaudio
   URL:=https://github.com/larsimmisch/pyalsaaudio
   DEPENDS:=+python +alsa-lib
 endef
 
-define Package/python-pyalsaaudio/description
+define Package/python-alsaaudio/description
 	ALSA wrappers for Python
 endef
 
@@ -39,10 +36,10 @@ define Build/Compile
 	$(call Build/Compile/PyMod,,install --prefix="$(PKG_INSTALL_DIR)/usr")
 endef
 
-define Package/python-pyalsaaudio/install
+define Package/python-alsaaudio/install
 	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)
 	$(CP) $(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* \
 	     $(1)$(PYTHON_PKG_DIR)
 endef
 
-$(eval $(call BuildPackage,python-pyalsaaudio))
+$(eval $(call BuildPackage,python-alsaaudio))
