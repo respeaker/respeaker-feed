@@ -17,7 +17,7 @@ define Package/respeaker-os-file
   SECTION:=respeaker
   CATEGORY:=ReSpeaker
   TITLE:=ReSpeaker os file
-  DEPENDS:=+avrdude +gmrender-resurrect +alsa-utils +alsa-lib
+  DEPENDS:=+avrdude +alsa-utils +alsa-lib
   ABI_VERSION:=$(PKG_RELEASE)
 endef
 
