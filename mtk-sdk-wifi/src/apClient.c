@@ -386,14 +386,14 @@ static int apClient_config(struct ubus_context *ctx, struct ubus_object *obj,
 
 static const struct ubus_method apClient_methods[] = {
     UBUS_METHOD("scan", apClient_scan, scan_policy),
-    UBUS_METHOD("config", apClient_config, config_policy),
+    UBUS_METHOD("connect", apClient_config, config_policy),
 };
 
 static struct ubus_object_type apClient_object_type =
-UBUS_OBJECT_TYPE("iwpriv", apClient_methods);
+UBUS_OBJECT_TYPE("rewifi", apClient_methods);
 
 static struct ubus_object apClient_object = {
-    .name = "iwpriv",
+    .name = "rewifi",
     .type = &apClient_object_type,
     .methods = apClient_methods,
     .n_methods = ARRAY_SIZE(apClient_methods),
@@ -433,13 +433,13 @@ static void setDefaultSta(char *ifname, char *staname, char *essid, char *passwd
 int main(int argc, char **argv)
 {
     const char *ubus_socket = NULL;
-
-    setDefaultSta(argv[1], argv[2], argv[3], argv[4]);
-
+    if (argc > 3) {
+        setDefaultSta(argv[1], argv[2], argv[3], argv[4]);
+    }
     uloop_init();
     signal(SIGPIPE, SIG_IGN);
 
-    openlog("iwpriv", 0, 0);
+    openlog("rewifi", 0, 0);
 
     ctx = ubus_connect(ubus_socket);
     if (!ctx) {
