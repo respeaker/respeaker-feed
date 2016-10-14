@@ -30,7 +30,7 @@ ralink_setup_ap(){
 	local eap=0
 
 	json_select config
-	json_get_vars mode ifname ssid encryption key key1 key2 key3 key4 wps_pushbutton server port hidden isolate macfilter
+	json_get_vars mode ifname ssid encryption key key1 key2 key3 key4  wps_pushbutton server port hidden isolate macfilter
 	json_get_values maclist maclist
 
 	ifconfig $ifname up
@@ -161,6 +161,11 @@ drv_ralink_setup() {
 
 	[ "${sta_disabled}" = "1" ] && bcn_active=1
 
+	ApCliEnable="$(uci get wireless.sta.ApCliEnable)"
+	ApCliSsid="$(uci get wireless.sta.ApCliSsid)"
+	ApCliAuthMode="$(uci get wireless.sta.ApCliAuthMode)"
+	ApCliWPAPSK="$(uci get wireless.sta.ApCliWPAPSK)"
+
 	json_select config
 	json_get_vars variant country channel htmode log_level short_preamble noscan:0
 	json_select ..
@@ -238,7 +243,11 @@ EOF
 	LED="$(uci get wireless.sta.led)"
 	sta_disabled="$(uci get wireless.sta.disabled)"
 	sta_disabled=1
-	[ "${sta_disabled}" = "1" -a -n "${LED}" -a -f /sys/class/leds/${LED}/trigger ] && apClient ${LED} set
+	if [ "${ApCliEnable}" = "1" ]; then
+		apClient ra0 apcli0 "${ApCliSsid}" "${ApCliWPAPSK}" "${ApCliAuthMode}" "${LED}"
+	else
+		[ "${sta_disabled}" = "1" -a -n "${LED}" -a -f /sys/class/leds/${LED}/trigger ] && apClient ${LED} set
+	fi
 }
 
 ralink_teardown() {
