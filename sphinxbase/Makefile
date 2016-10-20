@@ -16,7 +16,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL=1
-PKG_BUILD_DEPENDS:=alsa-lib
+PKG_BUILD_DEPENDS:=alsa-lib swig/host
 
 include $(INCLUDE_DIR)/package.mk
 $(call include_mk, python-package.mk)
