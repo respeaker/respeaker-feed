@@ -48,8 +48,9 @@ define Package/fasterconfig/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(CP) $(PKG_BUILD_DIR)/src/fasterconfig $(1)/usr/bin/
 	mkdir -p $(1)/etc/fasterconfig
-	$(CP) $(PKG_BUILD_DIR)/fasterconfig.conf $(1)/etc/fasterconfig
-	$(CP) $(PKG_BUILD_DIR)/fasterconfig-msg.html $(1)/etc/fasterconfig		
+	$(CP) ./files/etc/fasterconfig/fasterconfig.conf $(1)/etc/fasterconfig/fasterconfig.conf
+	$(CP) $(PKG_BUILD_DIR)/fasterconfig-msg.html $(1)/etc/fasterconfig	
+	$(INSTALL_BIN) ./files/etc/init.d/fasterconfig $(1)/etc/init.d/fasterconfig
 endef
 
 $(eval $(call BuildPackage,fasterconfig))
