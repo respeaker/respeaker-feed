@@ -25,7 +25,7 @@ PKG_RELEASE:=$(PKG_SOURCE_VERSION)
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/respeaker/wiui.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
-PKG_SOURCE_VERSION:=ad7cd83ce35687a03c4cfb767ff79dc654733302
+PKG_SOURCE_VERSION:=334ce7bb14c24b8b8ceea10fb0d916880e7baffb
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=Baozhu Zuo <zuobaozhu@gmail.com>
 
@@ -33,7 +33,7 @@ PKG_FIXUP:=autoreconf
 
 #PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
-PKG_BUILD_DEPENDS:=+libncurses
+PKG_BUILD_DEPENDS:=+libncurses +libpthread
 
 
 include $(INCLUDE_DIR)/package.mk
@@ -42,7 +42,7 @@ define Package/wiui
 	SECTION:=respeaker
 	CATEGORY:=ReSpeaker
 	TITLE:=show wifi config on terminal
-	DEPENDS:=+libncurses 
+	DEPENDS:=+libncurses +libpthread
 endef
 define Package/wiui/install
 	 $(INSTALL_DIR) $(1)/usr/bin
