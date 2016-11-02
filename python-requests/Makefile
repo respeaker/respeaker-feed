@@ -1,19 +1,18 @@
 #
-# Copyright (c) 2015 Quatanium Co., Ltd.
-#
-# Licensed under MIT.
-# See /LICENSE for more information.
+# Copyright (C) 2016 Seeed Technology Limited.
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=requests
-PKG_VERSION:=2.8.0
+PKG_VERSION:=v2.11.1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://pypi.python.org/packages/source/r/requests/
-PKG_MD5SUM:=3ec7198fc935d83c3eacff1ed4095ce4
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/kennethreitz/requests.git
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_VERSION:=$(PKG_VERSION)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_BUILD_DEPENDS:=python
 
 include $(INCLUDE_DIR)/package.mk
@@ -23,7 +22,7 @@ define Package/python-requests
 	SECTION:=Python
 	CATEGORY:=ReSpeaker
 	TITLE:=python-requests
-	URL:=https://pypi.python.org/pypi/requests
+	URL:=https://github.com/kennethreitz/requests
 	DEPENDS:=+python
 endef
 
