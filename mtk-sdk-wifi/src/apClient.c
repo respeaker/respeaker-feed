@@ -365,6 +365,7 @@ static int apClient_config(struct ubus_context *ctx, struct ubus_object *obj,
              /*udhcpc -i apcli0*/
             snprintf(cmd, lengthof(cmd) - 1, "udhcpc -i apcli0");
             system(cmd);
+
             sleep(2);
             while (wait_count--) {
                 if (isStaGetIP(staname)) {
@@ -433,8 +434,8 @@ static void setDefaultSta(char *ifname, char *staname, char *essid, char *passwd
             if (isStaGetIP(staname)) break;
         } else {
             syslog(LOG_INFO, "No signal found to connect to\n");
-            if (try_count == 3) break;
         }
+        if (try_count == 3) break;
         sleep(1);
     }
 }
