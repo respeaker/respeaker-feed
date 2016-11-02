@@ -334,6 +334,9 @@ static int apClient_config(struct ubus_context *ctx, struct ubus_object *obj,
         if (c) {
             syslog(LOG_INFO, "Found network, trying to associate (essid: %s, bssid: %s, channel: %s, enc: %s, crypto: %s)\n",
                    essid, c->ssid, c->channel, c->security, c->crypto);
+
+            wifi_repeater_start(ifname, staname, c->channel, essid, passwd, c->security, c->crypto);
+
             /*ifconfig staname down*/
             snprintf(cmd, lengthof(cmd) - 1, "ifconfig  %s down", staname);
             system(cmd);
@@ -342,21 +345,27 @@ static int apClient_config(struct ubus_context *ctx, struct ubus_object *obj,
             snprintf(cmd, lengthof(cmd) - 1, "ifconfig  %s  up", staname);
             system(cmd);
 
-            sleep(2);
+            
             /*use uci set ssid*/
-            snprintf(cmd, lengthof(cmd) - 1, "uci set wireless.sta.ssid=%s", essid);
+            snprintf(cmd, lengthof(cmd) - 1, "uci set wireless.sta.ApCliSsid=%s", essid);
             system(cmd);
 
              /*use uci set key*/
-            snprintf(cmd, lengthof(cmd) - 1, "uci set wireless.sta.key=%s", passwd);
+            snprintf(cmd, lengthof(cmd) - 1, "uci set wireless.sta.ApCliWPAPSK=%s", passwd);
             system(cmd);
 
              /*uci commit*/
             snprintf(cmd, lengthof(cmd) - 1, "uci commit");
             system(cmd);
 
-            wifi_repeater_start(ifname, staname, c->channel, essid, passwd, c->security, c->crypto);
+             /*killall udhcpc*/
+            snprintf(cmd, lengthof(cmd) - 1, "killall udhcpc");
+            system(cmd);
 
+             /*udhcpc -i apcli0*/
+            snprintf(cmd, lengthof(cmd) - 1, "udhcpc -i apcli0");
+            system(cmd);
+            sleep(2);
             while (wait_count--) {
                 if (isStaGetIP(staname)) {
                      blobmsg_add_string(&buf, "result", "success");
