@@ -4,7 +4,7 @@ PKG_NAME:=orange-rpcd
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/respeaker/orangerpcd.git
-PKG_SOURCE_VERSION:=784f83cecabb2940054f79706566d00893319dd9
+PKG_SOURCE_VERSION:=c8d70c2593c02cdf0128399b5874011315bfaf63
 PKG_VERSION:=2.16.08-$(PKG_SOURCE_VERSION)
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
@@ -68,7 +68,6 @@ define Package/orange-rpcd/install
 
 	$(INSTALL_DIR) $(1)/etc/orange/
 	touch $(1)/etc/orange/shadow
-	echo "admin `printf admin|sha1sum | awk '{printf $1}'`" > $(1)/etc/orange/shadow
 
 	$(INSTALL_DIR) $(1)/etc/config/
 	$(INSTALL_BIN) ./files/orange.config $(1)/etc/config/orange
