@@ -25,7 +25,7 @@ PKG_RELEASE:=$(PKG_SOURCE_VERSION)
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/respeaker/respeaker_wifi_webUI.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
-PKG_SOURCE_VERSION:=0e8b37cca1d46fc0c794978b3b88f59ecebd636f
+PKG_SOURCE_VERSION:=20bc2048724ee5969eda27172853048d590e37d9
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=Baozhu Zuo <zuobaozhu@gmail.com>
 
@@ -40,9 +40,13 @@ define Package/webui
 	TITLE:=respeaker webui
 endef
 
+define Build/Configure
+endef
+define Build/Compile
+endef
 define Package/webui/install
 	mkdir -p $(1)/www
-	$(CP) $(PKG_BUILD_DIR)/login.html $(1)/www/index.html
+	$(CP) $(PKG_BUILD_DIR)/login.html $(1)/www/
 
 	mkdir -p $(1)/www/js
 	$(CP) $(PKG_BUILD_DIR)/js/*   $(1)/www/js/
