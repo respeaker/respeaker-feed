@@ -43,7 +43,7 @@ config wifi-iface sta
 	option encryption psk
 	option disabled	1
     option ApCliEnable '1'
-    option ApCliSsid 'se.VPN'
+    option ApCliSsid 'se.VPN123'
     option ApCliAuthMode 'WPA2PSK'
     option ApCliWPAPSK 'qqqqqqqq9'
 EOF
