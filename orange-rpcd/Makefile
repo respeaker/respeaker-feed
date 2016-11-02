@@ -68,6 +68,7 @@ define Package/orange-rpcd/install
 
 	$(INSTALL_DIR) $(1)/etc/orange/
 	touch $(1)/etc/orange/shadow
+	echo "admin `printf admin|sha1sum | awk '{printf $1}'`" > $(1)/etc/orange/shadow
 
 	$(INSTALL_DIR) $(1)/etc/config/
 	$(INSTALL_BIN) ./files/orange.config $(1)/etc/config/orange
