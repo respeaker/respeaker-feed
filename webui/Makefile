@@ -41,6 +41,7 @@ define Package/webui
 endef
 
 define Package/webui/install
+	mkdir -p $(1)/www
 	$(CP) $(PKG_BUILD_DIR)/login.html $(1)/www/index.html
 
 	mkdir -p $(1)/www/js
