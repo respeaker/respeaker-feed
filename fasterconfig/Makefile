@@ -19,13 +19,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fasterconfig
-PKG_VERSION:=0.0.5
+PKG_VERSION:=0.0.6
 PKG_RELEASE:=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/respeaker/FasterConfig.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
-PKG_SOURCE_VERSION:=606e8ee1b11471e2e6687bcb857743b165495051
+PKG_SOURCE_VERSION:=945cbaab71f2d984d906ddab5674bd870e9a15f5
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=Baozhu Zuo <zuobaozhu@gmail.com>
 
@@ -50,6 +50,7 @@ define Package/fasterconfig/install
 	mkdir -p $(1)/etc/fasterconfig
 	$(CP) ./files/etc/fasterconfig/fasterconfig.conf $(1)/etc/fasterconfig/fasterconfig.conf
 	$(CP) $(PKG_BUILD_DIR)/fasterconfig-msg.html $(1)/etc/fasterconfig
+	touch $(1)/etc/fasterconfig/fasterconfig.lock
 	$(INSTALL_DIR) $(1)/etc/init.d	
 	$(INSTALL_BIN) ./files/etc/init.d/fasterconfig $(1)/etc/init.d/fasterconfig
 endef
