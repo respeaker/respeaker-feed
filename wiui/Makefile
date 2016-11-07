@@ -19,13 +19,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wiui
-PKG_VERSION:=0.0.1
+PKG_VERSION:=0.0.2
 PKG_RELEASE:=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/respeaker/wiui.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
-PKG_SOURCE_VERSION:=334ce7bb14c24b8b8ceea10fb0d916880e7baffb
+PKG_SOURCE_VERSION:=fb88cf08282d0c3533142e1da0bee589c072c47e
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=Baozhu Zuo <zuobaozhu@gmail.com>
 
@@ -47,6 +47,7 @@ endef
 define Package/wiui/install
 	 $(INSTALL_DIR) $(1)/usr/bin
 	 $(CP) $(PKG_BUILD_DIR)/src/wiui $(1)/usr/bin
+	 $(CP) $(PKG_BUILD_DIR)/src/wictl $(1)/usr/bin
 endef
 
 $(eval $(call BuildPackage,wiui))
