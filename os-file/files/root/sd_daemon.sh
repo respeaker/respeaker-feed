@@ -4,15 +4,14 @@
 while true
 do 
     echo "wait for mounting sd card"
-    while [ ! -f /tmp/run/mountd/mmcblk0p1/autorun ]; do
+    while [ ! -b /dev/mmcblk0p1 ]; do
         sleep 1
     done
 
-    echo "run autorun script on sd card"
-    sh /tmp/run/mountd/mmcblk0p1/autorun &
-
-    echo "wait for removing sd card"
-    while [ -f /tmp/run/mountd/mmcblk0p1/autorun ]; do
-        sleep 3
-    done
+    if [ -f /tmp/run/mountd/mmcblk0p1/autorun ]; then
+    	echo "run autorun script on sd card" > /dev/console
+		sh /tmp/run/mountd/mmcblk0p1/autorun &
+    fi 
+    sleep 3
 done
+
