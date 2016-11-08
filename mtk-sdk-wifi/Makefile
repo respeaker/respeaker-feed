@@ -61,7 +61,7 @@ MAKE_FLAGS += \
 define Build/Compile
 	$(call Build/Compile/Default,)
 	$(TARGET_CC) $(TARGET_CFLAGS)  -Wall -Werror -o  $(PKG_BUILD_DIR)/ap_client src/ap_client.c
-	$(TARGET_CC) $(TARGET_CFLAGS) -lubus -lubox -Wall -Werror -o  $(PKG_BUILD_DIR)/apClient src/apClient.c
+	$(TARGET_CC) $(TARGET_CFLAGS) -lubus -lubox -Wall -Werror -Wno-unused-variable -Wno-unused-function -o  $(PKG_BUILD_DIR)/apClient src/apClient.c
 endef
 
 define Build/InstallDev
