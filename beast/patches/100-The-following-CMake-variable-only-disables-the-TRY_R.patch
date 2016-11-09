@@ -1,0 +1,20 @@
+From deacd15bd3e3958848b1f9a369ba961b554492d5 Mon Sep 17 00:00:00 2001
+From: Pillar Zuo <zuobaozhu@gmail.com>
+Date: Tue, 8 Nov 2016 22:20:44 -0800
+Subject: [PATCH] The following CMake variable only disables the TRY_RUN call
+ in the -pthread test
+
+---
+ CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -29,6 +29,7 @@ else()
+     include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
+     link_directories(${Boost_LIBRARY_DIR})
+ 
++	set(THREADS_PTHREAD_ARG OFF)
+     set(THREADS_PREFER_PTHREAD_FLAG ON)
+     find_package(Threads)
+ 
