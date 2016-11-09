@@ -49,11 +49,11 @@ static struct blob_buf buf;
 
 struct survey_table {
     char channel[4];
-    char ssid[33];
+    char ssid[32];
     char bssid[20];
     char security[23];
     char *crypto;
-    char siganl[8];
+    char siganl[9];
 };
 
 static struct survey_table st[64];
@@ -97,7 +97,7 @@ static void wifi_site_survey(const char *ifname, const char *essid, int print) {
     char *line, *start;
 
     iwpriv(ifname, "SiteSurvey", (essid ? essid : ""));
-    sleep(5);
+    sleep(1);
     memset(s, 0x00, IW_SCAN_MAX_DATA);
     strcpy(wrq.ifr_name, ifname);
     wrq.u.data.length = IW_SCAN_MAX_DATA;
@@ -267,7 +267,6 @@ enum {
     CONFIG_PASSWD,
     CONFIG_CHANNEL,
     CONFIG_SECURITY,
-    CONFIG_SIGNAL,
     CONFIG_BSSID,
     __CONFIG_MAX
 };
@@ -279,7 +278,6 @@ static const struct blobmsg_policy connect_policy[__CONFIG_MAX] = {
     [CONFIG_PASSWD] = { .name = "passwd", .type = BLOBMSG_TYPE_STRING },
     [CONFIG_CHANNEL] = { .name = "channel", .type = BLOBMSG_TYPE_STRING },
     [CONFIG_SECURITY] = { .name = "security", .type = BLOBMSG_TYPE_STRING },
-    [CONFIG_SIGNAL] = { .name = "signal", .type = BLOBMSG_TYPE_STRING },
     [CONFIG_BSSID] = { .name = "bssid", .type = BLOBMSG_TYPE_STRING },
 };
 
@@ -323,7 +321,6 @@ static int apClient_connect(struct ubus_context *ctx, struct ubus_object *obj,
     const char *passwd;
     const char *channel;
     const char *security;
-    const char *signal;
     const char *bssid;
     char *crypto;
 
@@ -372,7 +369,7 @@ static int apClient_connect(struct ubus_context *ctx, struct ubus_object *obj,
 
 
      /*udhcpc -i apcli0*/
-    snprintf(cmd, lengthof(cmd) - 1, "udhcpc -q -i apcli0");
+    snprintf(cmd, lengthof(cmd) - 1, "udhcpc -n -q -i apcli0");
     system(cmd);
 
     while (wait_count--) {
@@ -418,19 +415,20 @@ static void server_main(void)
     uloop_run();
 }
 
-static void setDefaultSta(char *ifname, char *staname, char *essid, char *passwd) { 
+static void setDefaultSta(char *ifname, char *staname, char *ssid, char *passwd) { 
     int try_count = 0;
+    int wait_count = 3;
     while (1) {
         struct survey_table *c;
-        wifi_site_survey(ifname, essid, 0);
-        c = wifi_find_ap(essid);
+        wifi_site_survey(ifname, ssid, 0);
+        c = wifi_find_ap(ssid);
         try_count++;
         if (c) {
-            syslog(LOG_INFO, "Found network, trying to associate (essid: %s, bssid: %s, channel: %s, enc: %s, crypto: %s)\n",
-                   essid, c->ssid, c->channel, c->security, c->crypto);
+            syslog(LOG_INFO, "Found network, trying to associate (ssid: %s, channel: %s, enc: %s, crypto: %s)\n",
+                    c->ssid, c->channel, c->security, c->crypto);
 
-            wifi_repeater_start(ifname, staname, c->channel, essid, passwd, c->security, c->crypto);
-            if (isStaGetIP(staname)) break;
+            wifi_repeater_start(ifname, staname, c->channel, c->ssid, passwd, c->security, c->crypto);
+            break;
         } else {
             syslog(LOG_INFO, "No signal found to connect to\n");
         }
