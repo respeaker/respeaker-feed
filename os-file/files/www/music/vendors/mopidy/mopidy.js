@@ -1,0 +1,1 @@
+/usr/lib/python2.7/site-packages/mopidy/http/data/mopidy.js
