@@ -45,7 +45,7 @@ define Build/Compile
 endef
 define Package/webui/install
 	mkdir -p $(1)/www
-	$(CP) $(PKG_BUILD_DIR)/login.html $(1)/www/
+	$(CP) $(PKG_BUILD_DIR)/*.html $(1)/www/
 
 	mkdir -p $(1)/www/js
 	$(CP) $(PKG_BUILD_DIR)/js/*   $(1)/www/js/
