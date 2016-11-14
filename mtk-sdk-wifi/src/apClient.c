@@ -49,11 +49,11 @@ static struct blob_buf buf;
 
 struct survey_table {
     char channel[4];
-    char ssid[33];
+    char ssid[32];
     char bssid[20];
     char security[23];
     char *crypto;
-    char siganl[8];
+    char siganl[9];
 };
 
 static struct survey_table st[64];
@@ -97,7 +97,7 @@ static void wifi_site_survey(const char *ifname, const char *essid, int print) {
     char *line, *start;
 
     iwpriv(ifname, "SiteSurvey", (essid ? essid : ""));
-    sleep(5);
+    sleep(1);
     memset(s, 0x00, IW_SCAN_MAX_DATA);
     strcpy(wrq.ifr_name, ifname);
     wrq.u.data.length = IW_SCAN_MAX_DATA;
@@ -261,18 +261,24 @@ static int apClient_scan(struct ubus_context *ctx, struct ubus_object *obj,
 }
 
 enum {
-    CONFIG_IFNAME,
+    CONFIG_APNAME,
     CONFIG_STANAME,
-    CONFIG_ESSID,
+    CONFIG_SSID,
     CONFIG_PASSWD,
+    CONFIG_CHANNEL,
+    CONFIG_SECURITY,
+    CONFIG_BSSID,
     __CONFIG_MAX
 };
 
-static const struct blobmsg_policy config_policy[__CONFIG_MAX] = {
-    [CONFIG_IFNAME] = { .name = "ifname", .type = BLOBMSG_TYPE_STRING },
+static const struct blobmsg_policy connect_policy[__CONFIG_MAX] = {
+    [CONFIG_APNAME] = { .name = "apname", .type = BLOBMSG_TYPE_STRING },
     [CONFIG_STANAME] = { .name = "staname", .type = BLOBMSG_TYPE_STRING },
-    [CONFIG_ESSID] = { .name = "essid", .type = BLOBMSG_TYPE_STRING },
+    [CONFIG_SSID] = { .name = "ssid", .type = BLOBMSG_TYPE_STRING },
     [CONFIG_PASSWD] = { .name = "passwd", .type = BLOBMSG_TYPE_STRING },
+    [CONFIG_CHANNEL] = { .name = "channel", .type = BLOBMSG_TYPE_STRING },
+    [CONFIG_SECURITY] = { .name = "security", .type = BLOBMSG_TYPE_STRING },
+    [CONFIG_BSSID] = { .name = "bssid", .type = BLOBMSG_TYPE_STRING },
 };
 
 static char isStaGetIP(const char* staname)
@@ -302,91 +308,81 @@ static char isStaGetIP(const char* staname)
 
 }
 
-static int apClient_config(struct ubus_context *ctx, struct ubus_object *obj,
+static int apClient_connect(struct ubus_context *ctx, struct ubus_object *obj,
                            struct ubus_request_data *req, const char *method,
                            struct blob_attr *msg)
 {
     struct blob_attr *tb[__CONFIG_MAX];
     int try_count = 0; 
     int wait_count = 3;
-    const char *ifname;
+    const char *apname;
     const char *staname;
-    const char *essid;
+    const char *ssid;
     const char *passwd;
-    char cmd[100];
-    blobmsg_parse(config_policy, __CONFIG_MAX, tb, blob_data(msg), blob_len(msg));
+    const char *channel;
+    const char *security;
+    const char *bssid;
+    char *crypto;
 
-    if (!tb[CONFIG_IFNAME]) return UBUS_STATUS_INVALID_ARGUMENT;
+    char cmd[100];
+    blobmsg_parse(connect_policy, __CONFIG_MAX, tb, blob_data(msg), blob_len(msg));
+
+    if (!tb[CONFIG_APNAME]) return UBUS_STATUS_INVALID_ARGUMENT;
 
     blob_buf_init(&buf, 0);
-    ifname = blobmsg_data(tb[CONFIG_IFNAME]);
+    apname = blobmsg_data(tb[CONFIG_APNAME]);
     staname = blobmsg_data(tb[CONFIG_STANAME]);
-    essid = blobmsg_data(tb[CONFIG_ESSID]);
+    ssid = blobmsg_data(tb[CONFIG_SSID]);
     passwd = blobmsg_data(tb[CONFIG_PASSWD]);
-    syslog(LOG_INFO, "You want to config wireless network - %s %s %s %s \n",
-           ifname, staname, essid, passwd);
 
-    while (1) {
-        struct survey_table *c;
-        wifi_site_survey(ifname, essid, 0);
-        c = wifi_find_ap(essid);
-        try_count++;
-        if (c) {
-            syslog(LOG_INFO, "Found network, trying to associate (essid: %s, bssid: %s, channel: %s, enc: %s, crypto: %s)\n",
-                   essid, c->ssid, c->channel, c->security, c->crypto);
+    channel = blobmsg_data(tb[CONFIG_CHANNEL]);
+    security = blobmsg_data(tb[CONFIG_SECURITY]); 
 
-            wifi_repeater_start(ifname, staname, c->channel, essid, passwd, c->security, c->crypto);
+    crypto = strstr(security, "/");
+    if (crypto) {
+        *crypto = '\0';
+        crypto++;
+    }
 
-            /*ifconfig staname down*/
-            snprintf(cmd, lengthof(cmd) - 1, "ifconfig  %s down", staname);
-            system(cmd);
+    wifi_repeater_start(apname, staname, channel, ssid, passwd, security, crypto);
 
-            /*ifconfig staname down*/
-            snprintf(cmd, lengthof(cmd) - 1, "ifconfig  %s  up", staname);
-            system(cmd);
+    /*ifconfig staname down*/
+    snprintf(cmd, lengthof(cmd) - 1, "ifconfig  %s down", staname);
+    system(cmd);
 
-            
-            /*use uci set ssid*/
-            snprintf(cmd, lengthof(cmd) - 1, "uci set wireless.sta.ApCliSsid=%s", essid);
-            system(cmd);
+    /*ifconfig staname down*/
+    snprintf(cmd, lengthof(cmd) - 1, "ifconfig  %s  up", staname);
+    system(cmd);
 
-             /*use uci set key*/
-            snprintf(cmd, lengthof(cmd) - 1, "uci set wireless.sta.ApCliWPAPSK=%s", passwd);
-            system(cmd);
 
-             /*uci commit*/
-            snprintf(cmd, lengthof(cmd) - 1, "uci commit");
-            system(cmd);
+    /*use uci set ssid*/
+    snprintf(cmd, lengthof(cmd) - 1, "uci set wireless.sta.ApCliSsid=%s", ssid);
+    system(cmd);
 
-             /*killall udhcpc*/
-            snprintf(cmd, lengthof(cmd) - 1, "killall udhcpc");
-            system(cmd);
+     /*use uci set key*/
+    snprintf(cmd, lengthof(cmd) - 1, "uci set wireless.sta.ApCliWPAPSK=%s", passwd);
+    system(cmd);
 
-             /*udhcpc -i apcli0*/
-            snprintf(cmd, lengthof(cmd) - 1, "udhcpc -i apcli0");
-            system(cmd);
+     /*uci commit*/
+    snprintf(cmd, lengthof(cmd) - 1, "uci commit");
+    system(cmd);
 
-            sleep(2);
-            while (wait_count--) {
-                if (isStaGetIP(staname)) {
-                     blobmsg_add_string(&buf, "result", "success");
-                     break;
-                }
-                sleep(3);
-            }
-            if (wait_count == -1) {
-                blobmsg_add_string(&buf, "result", "failed");
-            }
-            break;
-        } else {
-            syslog(LOG_INFO, "No signal found to connect to\n");
-            if (try_count == 3) {
-                blobmsg_add_string(&buf, "result", "No signal");
-                break;
-            }
+
+     /*udhcpc -i apcli0*/
+    snprintf(cmd, lengthof(cmd) - 1, "udhcpc -n -q -i apcli0");
+    system(cmd);
+
+    while (wait_count--) {
+        if (isStaGetIP(staname)) {
+             blobmsg_add_string(&buf, "result", "success");
+             break;
         }
         sleep(1);
     }
+    if (wait_count == -1) {
+        blobmsg_add_string(&buf, "result", "failed");
+    }
+
     ubus_send_reply(ctx, req, buf.head);
     return UBUS_STATUS_OK;
 }
@@ -395,8 +391,8 @@ static int apClient_config(struct ubus_context *ctx, struct ubus_object *obj,
 
 
 static const struct ubus_method apClient_methods[] = {
-    UBUS_METHOD("scan", apClient_scan, scan_policy),
-    UBUS_METHOD("connect", apClient_config, config_policy),
+   // UBUS_METHOD("scan", apClient_scan, scan_policy),
+    UBUS_METHOD("connect", apClient_connect, connect_policy),
 };
 
 static struct ubus_object_type apClient_object_type =
@@ -419,19 +415,20 @@ static void server_main(void)
     uloop_run();
 }
 
-static void setDefaultSta(char *ifname, char *staname, char *essid, char *passwd) { 
+static void setDefaultSta(char *ifname, char *staname, char *ssid, char *passwd) { 
     int try_count = 0;
+    int wait_count = 3;
     while (1) {
         struct survey_table *c;
-        wifi_site_survey(ifname, essid, 0);
-        c = wifi_find_ap(essid);
+        wifi_site_survey(ifname, ssid, 0);
+        c = wifi_find_ap(ssid);
         try_count++;
         if (c) {
-            syslog(LOG_INFO, "Found network, trying to associate (essid: %s, bssid: %s, channel: %s, enc: %s, crypto: %s)\n",
-                   essid, c->ssid, c->channel, c->security, c->crypto);
+            syslog(LOG_INFO, "Found network, trying to associate (ssid: %s, channel: %s, enc: %s, crypto: %s)\n",
+                    c->ssid, c->channel, c->security, c->crypto);
 
-            wifi_repeater_start(ifname, staname, c->channel, essid, passwd, c->security, c->crypto);
-            if (isStaGetIP(staname)) break;
+            wifi_repeater_start(ifname, staname, c->channel, c->ssid, passwd, c->security, c->crypto);
+            break;
         } else {
             syslog(LOG_INFO, "No signal found to connect to\n");
         }

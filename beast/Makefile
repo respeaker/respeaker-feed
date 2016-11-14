@@ -18,36 +18,33 @@
 #
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=wiui
-PKG_VERSION:=0.0.3
+PKG_NAME:=beast
+PKG_VERSION:=1.0.0-b18
 PKG_RELEASE:=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/respeaker/wiui.git
+PKG_SOURCE_URL:=https://github.com/vinniefalco/Beast
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
-PKG_SOURCE_VERSION:=a10ca693177072f1f19f06c79a89c9deb19a3188
+PKG_SOURCE_VERSION=7b4de4b9513105845181321ba672bea4ce4a9062
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=Baozhu Zuo <zuobaozhu@gmail.com>
 
-PKG_FIXUP:=autoreconf
 
 #PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
-PKG_BUILD_DEPENDS:=+libncurses +libpthread
+PKG_BUILD_DEPENDS:=+libstdcpp +libpthread +boost-libs
 
 
 include $(INCLUDE_DIR)/package.mk
-
-define Package/wiui
-	SECTION:=respeaker
+include $(INCLUDE_DIR)/cmake.mk
+define Package/beast
+	SECTION:=utils
 	CATEGORY:=ReSpeaker
-	TITLE:=show wifi config on terminal
-	DEPENDS:=+libncurses +libpthread
-endef
-define Package/wiui/install
-	 $(INSTALL_DIR) $(1)/usr/bin
-	 $(CP) $(PKG_BUILD_DIR)/src/wiui $(1)/usr/bin
-	 $(CP) $(PKG_BUILD_DIR)/src/wictl $(1)/usr/bin
+	TITLE:=HTTP and WebSocket implementations built on Boost.Asio in C++11
+	DEPENDS:=+libstdcpp +libpthread +boost-libs
 endef
 
-$(eval $(call BuildPackage,wiui))
+#define Package/beast/install
+#endef
+
+$(eval $(call BuildPackage,beast))
