@@ -30,7 +30,7 @@ include $(INCLUDE_DIR)/package.mk
 
 CONFIGURE_ARGS+= \
 	--with-alsa \
-	--with-avahi \
+	--with-tinysvcmdns \
 	--with-soxr \
 	--with-ssl=openssl \
 	--sysconfdir=/etc
