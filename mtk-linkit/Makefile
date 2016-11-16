@@ -13,7 +13,7 @@ define Package/mtk-linkit
   HIDDEN:=1
   DEPENDS:=@TARGET_ramips_mt7688_LinkIt7688 \
   	+curl +strace +coreutils +coreutils-stty \
-  	+avahi-nodbus-daemon +mountd  \
+  	+avahi-dbus-daemon +mountd  \
 	+kmod-fs-vfat +kmod-fs-exfat  \
 	+kmod-nls-base +kmod-nls-cp437 +kmod-nls-iso8859-1 \
 	+kmod-nls-iso8859-15 +kmod-nls-iso8859-2 +kmod-nls-utf8 \
