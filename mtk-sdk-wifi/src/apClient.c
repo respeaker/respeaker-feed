@@ -162,7 +162,7 @@ static void wifi_repeater_start(const char *ifname, const char *staname, const c
     int enctype = 0;
 
     iwpriv(ifname, "Channel", channel);
-    iwpriv(staname, "ApCliEnable", "0");
+    //iwpriv(staname, "ApCliEnable", "0");
     if ((strstr(enc, "WPA2PSK") || strstr(enc, "WPAPSKWPA2PSK")) && key) {
         enctype = 1;
         iwpriv(staname, "ApCliAuthMode", "WPA2PSK");
@@ -343,6 +343,8 @@ static int apClient_connect(struct ubus_context *ctx, struct ubus_object *obj,
         *crypto = '\0';
         crypto++;
     }
+
+    wifi_site_survey(apname, NULL, 0);
 
     wifi_repeater_start(apname, staname, channel, ssid, passwd, security, crypto);
 
