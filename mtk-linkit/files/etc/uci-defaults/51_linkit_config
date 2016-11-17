@@ -22,6 +22,8 @@ board=$(ramips_board_name)
 
 
 uci set system.@system[-1].hostname="ReSpeaker"
+uci set system.@system[0].fasterconfig=1
+
 uci set wireless.radio0.disabled=0
 uci set network.lan.ipaddr=192.168.100.1
 
