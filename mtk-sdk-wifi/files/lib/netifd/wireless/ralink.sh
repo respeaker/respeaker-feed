@@ -166,6 +166,13 @@ drv_ralink_setup() {
 	ApCliAuthMode="$(uci get wireless.sta.ApCliAuthMode)"
 	ApCliWPAPSK="$(uci get wireless.sta.ApCliWPAPSK)"
 
+	fasterconfig="$(uci get system.@system[0].fasterconfig)"
+	if [ "${fasterconfig}" = "1" ]; then
+		touch /etc/fasterconfig/fasterconfig.lock
+	else
+		rm /etc/fasterconfig/fasterconfig.lock
+	fi 
+
 	json_select config
 	json_get_vars variant country channel htmode log_level short_preamble noscan:0
 	json_select ..
