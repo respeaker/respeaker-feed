@@ -19,13 +19,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=webui
-PKG_VERSION:=master
+PKG_VERSION:=v0.0.9
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/respeaker/respeaker_frontend.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
-PKG_SOURCE_VERSION:=da8ab48112476d17ac1fe051997110eb220f1c24
+PKG_SOURCE_VERSION:=70ed36ef4a3c3582b15c98aa1c84f55a46cc532f
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=Baozhu Zuo <zuobaozhu@gmail.com>
 
