@@ -343,7 +343,7 @@ static int apClient_connect(struct ubus_context *ctx, struct ubus_object *obj,
         *crypto = '\0';
         crypto++;
     }
-
+    wifi_site_survey(apname,NULL,0);
 
     wifi_repeater_start(apname, staname, channel, ssid, passwd, security, crypto);
 
