@@ -25,7 +25,7 @@ PKG_RELEASE:=1
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/respeaker/respeaker_frontend.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
-PKG_SOURCE_VERSION:=8f0866eecfe126fda2f7e4879fde443ec68f8803
+PKG_SOURCE_VERSION:=82d06b6f58dc2d3f70dc996ab27fafceab02fda0
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=Baozhu Zuo <zuobaozhu@gmail.com>
 
