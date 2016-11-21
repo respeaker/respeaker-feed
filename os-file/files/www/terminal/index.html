@@ -1,69 +1,16 @@
-<!DOCTYPE html>
-<head>
-<meta charset="UTF-8"> 
-<title>Terminal</title>
-<style>
-  html {
-    background: #000000;
-  }
-</style>
-<script src="js/term.js"></script>
-<script src="js/terminado.js"></script>
-<script>
-window.onload = function() {
-    // Test size: 25x80
-    var termRowHeight = 0.0 + 1.0*document.getElementById("dummy-screen").offsetHeight / 25;
-    var termColWidth = 0.0 + 1.0*document.getElementById("dummy-screen-rows").offsetWidth / 80;
-    document.getElementById("dummy-screen").setAttribute("style", "display: none");
-
-    var ws_url = "ws"+"://"+window.location.hostname+":6680/terminal/websocket";
-    console.log(ws_url);
-    function calculate_size(element) {
-        var rows = Math.max(2, Math.floor((element.innerHeight - 10)/termRowHeight));
-        var cols = Math.max(3, Math.floor((element.innerWidth - 10)/termColWidth));
-        console.log("resize:", termRowHeight, termColWidth, element.innerHeight,
-                                        element.innerWidth, rows, cols);
-        return {rows: rows, cols: cols};
-    }
-
-    size = calculate_size(window);
-    var terminal = make_terminal(document.body, size, ws_url);
-    
-    window.onresize = function() { 
-      var geom = calculate_size(window);
-      terminal.term.resize(geom.cols, geom.rows);
-      terminal.socket.send(JSON.stringify(["set_size", geom.rows, geom.cols,
-                                window.innerHeight, window.innerWidth]));
-    };
-};
-</script>
-</head>
-<body style="margin: 0px">
-<!-- test size: 25x80 -->
-<pre id="dummy-screen" style="visibility:hidden; border: white solid 5px; font-family: &quot;DejaVu Sans Mono&quot;, &quot;Liberation Mono&quot;, monospace; font-size: 12px;">0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-0
-1
-2
-3
-<span id="dummy-screen-rows" style="visibility:hidden;">01234567890123456789012345678901234567890123456789012345678901234567890123456789</span>
-</pre>
-</body>
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <script type="text/javascript">
+            var url = "http://" + window.location.hostname + ":7681/";
+            window.location = url;
+            document.getElementById("url").href=url; 
+        </script>
+        <title>Web Terminal</title>
+    </head>
+    <body>
+        <!-- Note: don't tell people to `click` the link, just tell them that it is a link. -->
+        If you are not redirected automatically, follow the <a id="url" href='http://192.168.100.1:7681/'>link to Web Terminal</a>
+    </body>
+</html>
