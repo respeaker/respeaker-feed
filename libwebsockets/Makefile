@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libwebsockets
-PKG_VERSION:=0c7e5a94182b8bf5b5be2fc58141466bf54d5812
+PKG_VERSION:=v2.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -91,6 +91,11 @@ define Build/InstallDev
 	
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libwebsockets.so* $(1)/usr/lib/
+
+	#$(CP) $(PKG_INSTALL_DIR)/usr/lib/cmake $(1)/usr/lib/
+
+	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/libwebsockets.pc $(1)/usr/lib/pkgconfig
 endef
 
 
