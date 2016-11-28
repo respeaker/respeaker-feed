@@ -19,13 +19,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=webui
-PKG_VERSION:=v0.1.0
+PKG_VERSION:=v0.1.1
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/respeaker/respeaker_frontend.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
-PKG_SOURCE_VERSION:=8532c4920104b030b1e038113ff75d52e215d295
+PKG_SOURCE_VERSION:=1f1b1192b650fce6891f779a49b199f0a0c32bb9
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=Baozhu Zuo <zuobaozhu@gmail.com>
 
@@ -47,6 +47,12 @@ endef
 define Package/webui/install
 	mkdir -p $(1)/www
 	$(CP) $(PKG_BUILD_DIR)/*.html $(1)/www/
+
+	mkdir -p $(1)/www/login
+	$(CP) $(PKG_BUILD_DIR)/login/*.html $(1)/www/login
+	
+	mkdir -p $(1)/www/start
+	$(CP) $(PKG_BUILD_DIR)/start/*.html $(1)/www/start
 
 	mkdir -p $(1)/www/js
 	$(CP) $(PKG_BUILD_DIR)/js/*   $(1)/www/js/
