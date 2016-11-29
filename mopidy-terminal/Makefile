@@ -23,7 +23,7 @@ define Package/mopidy-terminal
 	CATEGORY:=ReSpeaker
 	TITLE:=mopidy-terminal
 	URL:=https://github.com/xiongyihui/mopidy-terminal
-	DEPENDS:=+python +terminado
+	DEPENDS:=+python +mopidy
 endef
 
 define Package/mopidy-terminal/description

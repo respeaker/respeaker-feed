@@ -23,7 +23,7 @@ define Package/mopidy-filemanager
 	CATEGORY:=ReSpeaker
 	TITLE:=mopidy-filemanager
 	URL:=https://github.com/xiongyihui/mopidy-filemanager
-	DEPENDS:=+python +terminado
+	DEPENDS:=+python +mopidy
 endef
 
 define Package/mopidy-filemanager/description

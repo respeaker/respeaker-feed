@@ -23,7 +23,7 @@ define Package/mopidy-hallo
 	CATEGORY:=ReSpeaker
 	TITLE:=mopidy-hallo
 	URL:=https://github.com/respeaker/mopidy-hallo
-	DEPENDS:=+python +terminado
+	DEPENDS:=+python
 endef
 
 define Package/mopidy-hallo/description
