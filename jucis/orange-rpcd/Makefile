@@ -61,6 +61,8 @@ define Package/orange-rpcd/install
 	$(INSTALL_DIR) $(1)/usr/lib/orange/acl/
 	$(INSTALL_DIR) $(1)/usr/lib/orange/lib/
 	$(CP) $(PKG_BUILD_DIR)/lualib/* $(1)/usr/lib/orange/lib/
+	
+	$(CP) $(PKG_BUILD_DIR)/files/etc/* $(1)/etc/
 
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/orange.init $(1)/etc/init.d/orange
