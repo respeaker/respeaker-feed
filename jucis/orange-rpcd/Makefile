@@ -4,7 +4,7 @@ PKG_NAME:=orange-rpcd
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/respeaker/orangerpcd.git
-PKG_SOURCE_VERSION:=3a069faf278dd81b0506729c4559b0f2992a1dbe
+PKG_SOURCE_VERSION:=499f126b30ab195b52b80276150e2a34c340ba1f
 PKG_VERSION:=2.16.08-$(PKG_SOURCE_VERSION)
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
@@ -58,9 +58,17 @@ define Package/orange-rpcd/install
 	$(INSTALL_DIR) $(1)/usr/lib/orange/api/
 	$(CP) $(PKG_BUILD_DIR)/plugins/* $(1)/usr/lib/orange/api/
 	
+	$(INSTALL_DIR) $(1)/usr/lib/orange/api/juci
+	$(CP) $(PKG_BUILD_DIR)/plugins/juci/* $(1)/usr/lib/orange/api/juci/
+	
 	$(INSTALL_DIR) $(1)/usr/lib/orange/acl/
+	$(CP) $(PKG_BUILD_DIR)/acl/* $(1)/usr/lib/orange/acl/
+
 	$(INSTALL_DIR) $(1)/usr/lib/orange/lib/
 	$(CP) $(PKG_BUILD_DIR)/lualib/* $(1)/usr/lib/orange/lib/
+
+	mkdir -p $(1)/etc/uci-defaults	
+	$(CP) ./files/etc/uci-defaults/40-juci-openwrt-config $(1)/etc/uci-defaults
 
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/orange.init $(1)/etc/init.d/orange
