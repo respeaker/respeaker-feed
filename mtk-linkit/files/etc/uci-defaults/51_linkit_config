@@ -12,7 +12,8 @@ uci commit network
 
 uci delete uhttpd.main.alias
 uci commit uhttpd
-
+#set uart0 as gpio function
+mt7688_pinmux set uart0 gpio
 [ "$(uci get system.@system[-1].linkit_firstboot)" = "1" ] && return 0
 
 . /lib/ramips.sh
