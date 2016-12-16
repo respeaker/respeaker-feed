@@ -21,7 +21,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 if platform.machine() == 'mips':
     config_file = '/etc/config/alexa.json'
-    hint_file = '/root/alexa_hint.wav'
+    hint_file = '/root/alexa_hint.mp3'
 else:
     config_file = os.path.join(os.path.dirname(__file__), 'alexa.json')
     hint_file = os.path.join(os.path.dirname(__file__), 'alexa_hint.mp3')
