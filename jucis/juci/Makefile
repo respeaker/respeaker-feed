@@ -4,8 +4,8 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=juci
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/respeaker/juci.git
-PKG_SOURCE_VERSION:=ab3c3415bdb42698480d7c1eb68d130ea3b5125e
+PKG_SOURCE_URL:=https://git.oschina.net/yihui/juci.git
+PKG_SOURCE_VERSION:=respeaker
 PKG_VERSION:=2.16.09
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_SOURCE_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION).tar.gz
