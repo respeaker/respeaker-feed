@@ -23,9 +23,9 @@ PKG_VERSION:=0.0.1
 PKG_RELEASE:=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/respeaker/xmos-dfu.git
+PKG_SOURCE_URL:=https://github.com/respeaker/mic_array_dfu.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
-PKG_SOURCE_VERSION:=3dcaf3708dec9eb4354965b48db4cb3d5fc44738
+PKG_SOURCE_VERSION:=4d8f60a9a542dfaf2663d9d15ab481f86dddae58
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=Baozhu Zuo <zuobaozhu@gmail.com>
 
